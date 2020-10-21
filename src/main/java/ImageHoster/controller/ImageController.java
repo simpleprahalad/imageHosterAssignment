@@ -1,10 +1,12 @@
 package ImageHoster.controller;
 
+import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
 import ImageHoster.model.Tag;
 import ImageHoster.model.User;
 import ImageHoster.service.ImageService;
 import ImageHoster.service.TagService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +52,7 @@ public class ImageController {
         Image image = imageService.getImage(imageId);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments",image.getComments());
         return "images/image";
     }
 
@@ -109,6 +112,7 @@ public class ImageController {
         } else {
             List<Tag> tags = image.getTags();
             model.addAttribute("tags", tags);
+            model.addAttribute("comments",image.getComments());
             return "images/image";
         }
     }
@@ -157,6 +161,7 @@ public class ImageController {
         List<Tag> tags = image.getTags();
         model.addAttribute("image", image);
         model.addAttribute("tags", tags);
+        model.addAttribute("comments",image.getComments());
 
         String error = "Only the owner of the image can delete the image";
         model.addAttribute("deleteError", error);
@@ -170,6 +175,7 @@ public class ImageController {
             return "images/image";
         }
     }
+
 
 
     //This method converts the image to Base64 format
