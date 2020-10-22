@@ -105,7 +105,7 @@ public class ImageController {
         String error = "Only the owner of the image can edit the image";
         model.addAttribute("editError", error);
 
-        if(user.getId().equals(sessionUser.getId())) {
+        if(user!= null && user.getId().equals(sessionUser.getId())) {
             String tags = convertTagsToString(image.getTags());
             model.addAttribute("tags", tags);
             return "images/edit";
@@ -168,7 +168,7 @@ public class ImageController {
 
         User user = imageService.getImage(imageId).getUser();
         User sessionUser = (User) session.getAttribute("loggeduser");
-        if(user.getId().equals(sessionUser.getId())) {
+        if(user != null && user.getId().equals(sessionUser.getId())) {
             imageService.deleteImage(imageId);
             return "redirect:/images";
         } else {

@@ -54,7 +54,7 @@ public class UserController {
         }
 
         userService.registerUser(user);
-        return "redirect:/users/login";
+        return "users/login";
     }
 
     private boolean validatePassword(String password) {
